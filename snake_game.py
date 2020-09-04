@@ -27,26 +27,34 @@ class SnakeGame:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP or event.key == pygame.K_w:
-                        self.snake_part.m_up = True
-                    elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                        self.snake_part.m_down = True
-                    elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                        self.snake_part.m_left = True
-                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                        self.snake_part.m_right = True
+                    self._check_keydown_events(event)
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_UP or event.key == pygame.K_w:
-                        self.snake_part.m_up = False
-                    elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                        self.snake_part.m_down = False
-                    elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                        self.snake_part.m_left = False
-                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                        self.snake_part.m_right = False
-
+                    self._check_keyup_events(event)
+            
             self.snake_parts.update()
             self._update_screen()
+
+    def _check_keydown_events(self, event):
+        '''Check keydown events.'''
+        if event.key == pygame.K_UP or event.key == pygame.K_w:
+            self.snake_part.m_up = True
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            self.snake_part.m_down = True
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.snake_part.m_left = True
+        elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.snake_part.m_right = True
+
+    def _check_keyup_events(self, event):
+        '''Check keyup events.'''
+        if event.key == pygame.K_UP or event.key == pygame.K_w:
+            self.snake_part.m_up = False
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            self.snake_part.m_down = False
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.snake_part.m_left = False
+        elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.snake_part.m_right = False
 
     def _update_screen(self):
         '''Update the screen.'''
