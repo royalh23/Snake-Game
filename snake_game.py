@@ -23,16 +23,19 @@ class SnakeGame:
     def run_game(self):
         '''The main loop of the game.'''
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    self._check_keydown_events(event)
-                elif event.type == pygame.KEYUP:
-                    self._check_keyup_events(event)
-            
-            self.snake_parts.update()
+            self._check_events()
+            self._update_snake_parts()
             self._update_screen()
+
+    def _check_events(self):
+        '''Check all the events.'''
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
 
     def _check_keydown_events(self, event):
         '''Check keydown events.'''
@@ -44,6 +47,8 @@ class SnakeGame:
             self.snake_part.m_left = True
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.snake_part.m_right = True
+        elif event.key == pygame.K_q:
+            sys.exit()
 
     def _check_keyup_events(self, event):
         '''Check keyup events.'''
@@ -56,6 +61,10 @@ class SnakeGame:
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.snake_part.m_right = False
 
+    def _update_snake_parts(self):
+        '''Update all the parts of the snake.'''
+        self.snake_parts.update()
+        
     def _update_screen(self):
         '''Update the screen.'''
         self.screen.fill(self.settings.bg_color)

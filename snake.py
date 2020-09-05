@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 from pygame.sprite import Sprite 
 
@@ -30,13 +31,13 @@ class Snake(Sprite):
 
     def update(self):
         '''Update the position of the snake.'''
-        if self.m_right and self.rect.right <= self.screen_rect.right:
+        if self.m_right and self.rect.right < self.screen_rect.right:                    
             self.x += self.settings.snake_speed
-        if self.m_left and self.rect.left >= self.screen_rect.left:
+        if self.m_left and self.rect.left > self.screen_rect.left:
             self.x -= self.settings.snake_speed
-        if self.m_down and self.rect.bottom <= self.screen_rect.bottom:
+        if self.m_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.snake_speed
-        if self.m_up and self.rect.top >= self.screen_rect.top:
+        if self.m_up and self.rect.top > self.screen_rect.top:
             self.y -= self.settings.snake_speed
 
         self.rect.x = self.x
