@@ -1,8 +1,11 @@
 import pygame
 import sys
 
+from random import randint
+
 from settings import Settings 
 from snake import Snake
+from food import Food 
 
 class SnakeGame:
     '''The main class of the game.'''
@@ -16,9 +19,10 @@ class SnakeGame:
                             self.settings.screen_height))
         pygame.display.set_caption("Snake Game")
 
-        self.snake_parts = pygame.sprite.Group()
-        self.snake_part = Snake(self)
+        self.snake_parts = pygame.sprite.Group() #Will do some refactoring here.
+        self.snake_part = Snake(self)  # Will move this part elsewhere.
         self.snake_parts.add(self.snake_part)
+        self.food = Food(self)
 
     def run_game(self):
         '''The main loop of the game.'''
@@ -69,8 +73,13 @@ class SnakeGame:
         '''Update the screen.'''
         self.screen.fill(self.settings.bg_color)
 
+        # Draw snake parts to the screen.
         for snake_part in self.snake_parts.sprites():
-            snake_part.draw()
+            self.snake_part_rect = snake_part.get_rect()  #!!!!!!!!!!!!!!!!!
+            snake_part.draw_part()
+
+        # Draw foods to the screen.
+        self.food.draw_food()
 
         pygame.display.flip()
 

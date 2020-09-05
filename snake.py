@@ -43,6 +43,6 @@ class Snake(Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
         
-    def draw(self):
+    def draw_part(self):
         '''Draw the snake to the screen.'''
         pygame.draw.rect(self.screen, self.color, self.rect)
