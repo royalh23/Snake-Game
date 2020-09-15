@@ -22,8 +22,11 @@ class SnakeGame:
         self.snake_parts = pygame.sprite.Group() #Will do some refactoring here.
         self.snake_part = Snake(self)  # Will move this part elsewhere.
         self.snake_parts.add(self.snake_part)
-        self.food = Food(self)
-
+        
+        self.foods = pygame.sprite.Group()
+        self.food = Food(self)          # Will do some refactoring here as well.
+        self.foods.add(self.food)       # Will move this part elsewhere.
+       
     def run_game(self):
         '''The main loop of the game.'''
         while True:
@@ -65,6 +68,10 @@ class SnakeGame:
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.snake_part.m_right = False
 
+    def _check_snake_food_collisions(self):
+        '''Check the collisions between the snake and foods.'''
+        pass
+      
     def _update_snake_parts(self):
         '''Update all the parts of the snake.'''
         self.snake_parts.update()
@@ -75,7 +82,6 @@ class SnakeGame:
 
         # Draw snake parts to the screen.
         for snake_part in self.snake_parts.sprites():
-            self.snake_part_rect = snake_part.get_rect()  #!!!!!!!!!!!!!!!!!
             snake_part.draw_part()
 
         # Draw foods to the screen.
