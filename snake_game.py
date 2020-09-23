@@ -19,7 +19,7 @@ class SnakeGame:
                             self.settings.screen_height))
         pygame.display.set_caption("Snake Game")
 
-        self.snake_part = Snake(self)  # Will move this part elsewhere.
+        self.snake = Snake(self)  # Will move this part elsewhere.
         
         self.foods = pygame.sprite.Group()
         self.food = Food(self)         # Will do some refactoring here as well.
@@ -29,7 +29,7 @@ class SnakeGame:
         '''The main loop of the game.'''
         while True:
             self._check_events()
-            self._update_snake_parts()
+            self._update_snake()
             self._update_screen()
             self._check_snake_food_collisions()  # Will move this elsewhere.                             
 
@@ -69,7 +69,7 @@ class SnakeGame:
 
     def _check_snake_food_collisions(self):
         '''Check the collisions between the snake and foods.'''
-        collisions = pygame.sprite.groupcollide(self.foods, self.snake_part, 
+        collisions = pygame.sprite.groupcollide(self.foods, self.snake, 
                                             True, False)
         # Fix the collision problem between a rect object and a sprite.
 
@@ -77,16 +77,16 @@ class SnakeGame:
         if collisions:
             pass
 
-    def _update_snake_parts(self):
+    def _update_snake(self):
         '''Update all the parts of the snake.'''
-        self.snake_part.update()
+        self.snake.update()
         
     def _update_screen(self):
         '''Update the screen.'''
         self.screen.fill(self.settings.bg_color)
 
         # Draw snake parts to the screen.
-        self.snake_part.draw_part()
+        self.snake.draw_part()
 
         # Draw foods to the screen.
         for food in self.foods.sprites():
