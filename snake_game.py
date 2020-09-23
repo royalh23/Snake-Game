@@ -78,14 +78,14 @@ class SnakeGame:
             pass
 
     def _update_snake(self):
-        '''Update all the parts of the snake.'''
+        '''Update the snake.'''
         self.snake.update()
         
     def _update_screen(self):
         '''Update the screen.'''
         self.screen.fill(self.settings.bg_color)
 
-        # Draw snake parts to the screen.
+        # Draw the snake to the screen.
         self.snake.draw_part()
 
         # Draw foods to the screen.
