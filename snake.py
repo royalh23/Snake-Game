@@ -1,9 +1,7 @@
 import pygame
 import sys
 
-from pygame.sprite import Sprite 
-
-class Snake(Sprite):
+class Snake:
     '''A class to manage the snake.'''
 
     def __init__(self, sg):

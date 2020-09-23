@@ -19,13 +19,11 @@ class SnakeGame:
                             self.settings.screen_height))
         pygame.display.set_caption("Snake Game")
 
-        self.snake_parts = pygame.sprite.Group() #Will do some refactoring here.
         self.snake_part = Snake(self)  # Will move this part elsewhere.
-        self.snake_parts.add(self.snake_part)
         
         self.foods = pygame.sprite.Group()
-        self.food = Food(self)          # Will do some refactoring here as well.
-        self.foods.add(self.food)       # Will move this part elsewhere.
+        self.food = Food(self)         # Will do some refactoring here as well.
+        self.foods.add(self.food)      # Will move this part elsewhere.
        
     def run_game(self):
         '''The main loop of the game.'''
@@ -33,6 +31,7 @@ class SnakeGame:
             self._check_events()
             self._update_snake_parts()
             self._update_screen()
+            self._check_snake_food_collisions()  # Will move this elsewhere.                             
 
     def _check_events(self):
         '''Check all the events.'''
@@ -70,22 +69,28 @@ class SnakeGame:
 
     def _check_snake_food_collisions(self):
         '''Check the collisions between the snake and foods.'''
-        pass
-      
+        collisions = pygame.sprite.groupcollide(self.foods, self.snake_part, 
+                                            True, False)
+        # Fix the collision problem between a rect object and a sprite.
+
+        # Add a snake part after a collision.
+        if collisions:
+            pass
+
     def _update_snake_parts(self):
         '''Update all the parts of the snake.'''
-        self.snake_parts.update()
+        self.snake_part.update()
         
     def _update_screen(self):
         '''Update the screen.'''
         self.screen.fill(self.settings.bg_color)
 
         # Draw snake parts to the screen.
-        for snake_part in self.snake_parts.sprites():
-            snake_part.draw_part()
+        self.snake_part.draw_part()
 
         # Draw foods to the screen.
-        self.food.draw_food()
+        for food in self.foods.sprites():
+            food.draw_food()
 
         pygame.display.flip()
 
