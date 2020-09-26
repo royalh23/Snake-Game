@@ -6,7 +6,6 @@ class Snake:
 
     def __init__(self, sg):
         '''Initialize the snake's location, size, etc.'''
-        super().__init__()
         self.screen = sg.screen
         self.settings = sg.settings
         self.color = self.settings.snake_color
