@@ -13,9 +13,9 @@ class Settings:
         self.snake_width = 20
         self.snake_height = 20
         self.snake_color = (255, 255, 0)  # Yellow color
-        self.snake_speed = 1
+        self.snake_speed = 0.25
 
         # Food settings
-        self.food_width = 10
-        self.food_height = 10
+        self.food_width = 20
+        self.food_height = 20
         self.food_color = (139, 69, 19)  # Brown color

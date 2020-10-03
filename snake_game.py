@@ -19,7 +19,7 @@ class SnakeGame:
                             self.settings.screen_height))
         pygame.display.set_caption("Snake Game")
 
-        self.snake = Snake(self)  # Will move this part elsewhere.
+        self.snake = Snake(self)
         
         self.foods = pygame.sprite.Group()
         self.food = Food(self)         # Will do some refactoring here as well.
@@ -46,36 +46,39 @@ class SnakeGame:
     def _check_keydown_events(self, event):
         '''Check keydown events.'''
         if event.key == pygame.K_UP or event.key == pygame.K_w:
-            self.snake_part.m_up = True
+            self.snake.m_up = True
         elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-            self.snake_part.m_down = True
+            self.snake.m_down = True
         elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-            self.snake_part.m_left = True
+            self.snake.m_left = True
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-            self.snake_part.m_right = True
+            self.snake.m_right = True
         elif event.key == pygame.K_q:
             sys.exit()
 
     def _check_keyup_events(self, event):
         '''Check keyup events.'''
         if event.key == pygame.K_UP or event.key == pygame.K_w:
-            self.snake_part.m_up = False
+            self.snake.m_up = False
         elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-            self.snake_part.m_down = False
+            self.snake.m_down = False
         elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-            self.snake_part.m_left = False
+            self.snake.m_left = False
         elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-            self.snake_part.m_right = False
+            self.snake.m_right = False
 
     def _check_snake_food_collisions(self):
         '''Check the collisions between the snake and foods.'''
-        collisions = pygame.sprite.groupcollide(self.foods, self.snake, 
-                                            True, False)
-        # Fix the collision problem between a rect object and a sprite.
-
-        # Add a snake part after a collision.
-        if collisions:
-            pass
+        for food in self.foods.sprites():
+            if self.snake.rect.colliderect(food):
+                self._food_eaten(food) # Will add some comments here.
+                
+    def _food_eaten(self, food):
+        '''Respond to the situation in which food is eaten.'''
+        self.foods.empty()
+        food = Food(self)
+        self.foods.add(food)   # Will add some comments here as well.
+        food.spawn_food()
 
     def _update_snake(self):
         '''Update the snake.'''
@@ -86,7 +89,7 @@ class SnakeGame:
         self.screen.fill(self.settings.bg_color)
 
         # Draw the snake to the screen.
-        self.snake.draw_part()
+        self.snake.draw_snake()
 
         # Draw foods to the screen.
         for food in self.foods.sprites():

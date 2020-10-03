@@ -40,6 +40,6 @@ class Snake:
         self.rect.x = self.x
         self.rect.y = self.y
         
-    def draw_part(self):
+    def draw_snake(self):
         '''Draw the snake to the screen.'''
         pygame.draw.rect(self.screen, self.color, self.rect)
